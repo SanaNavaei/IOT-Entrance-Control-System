@@ -15,8 +15,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Network HttpServer)
 add_executable(EntranceControlCloud
   main.cpp
   entranceservercloud.h entranceservercloud.cpp
-  httprequest.h httprequest.cpp
-  httpresponse.h httpresponse.cpp
   orm.h orm.cpp
   httpserver.h httpserver.cpp
   websocketserver.h websocketserver.cpp
@@ -24,6 +22,7 @@ add_executable(EntranceControlCloud
   websocketresponse.h websocketresponse.cpp
   rfiditem.h rfiditem.cpp
   entrancerecord.h entrancerecord.cpp
+  authenticator.h authenticator.cpp
 )
 target_link_libraries(EntranceControlCloud Qt${QT_VERSION_MAJOR}::Core Qt6::Network Qt6::HttpServer)
 
