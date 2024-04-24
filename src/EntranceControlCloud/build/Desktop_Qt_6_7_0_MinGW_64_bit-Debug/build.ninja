@@ -73,22 +73,6 @@ build CMakeFiles/EntranceControlCloud.dir/entranceservercloud.cpp.obj: CXX_COMPI
   OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
   OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
 
-build CMakeFiles/EntranceControlCloud.dir/httprequest.cpp.obj: CXX_COMPILER__EntranceControlCloud_unscanned_Debug G$:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/httprequest.cpp || cmake_object_order_depends_target_EntranceControlCloud
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_HTTPSERVER_LIB -DQT_NETWORK_LIB -DQT_WEBSOCKETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\EntranceControlCloud.dir\httprequest.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IG:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud_autogen/include -isystem F:/Qt/6.7.0/mingw_64/include/QtCore -isystem F:/Qt/6.7.0/mingw_64/include -isystem F:/Qt/6.7.0/mingw_64/mkspecs/win32-g++ -isystem F:/Qt/6.7.0/mingw_64/include/QtNetwork -isystem F:/Qt/6.7.0/mingw_64/include/QtHttpServer -isystem F:/Qt/6.7.0/mingw_64/include/QtWebSockets
-  OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
-  OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
-
-build CMakeFiles/EntranceControlCloud.dir/httpresponse.cpp.obj: CXX_COMPILER__EntranceControlCloud_unscanned_Debug G$:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/httpresponse.cpp || cmake_object_order_depends_target_EntranceControlCloud
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_HTTPSERVER_LIB -DQT_NETWORK_LIB -DQT_WEBSOCKETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\EntranceControlCloud.dir\httpresponse.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IG:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud_autogen/include -isystem F:/Qt/6.7.0/mingw_64/include/QtCore -isystem F:/Qt/6.7.0/mingw_64/include -isystem F:/Qt/6.7.0/mingw_64/mkspecs/win32-g++ -isystem F:/Qt/6.7.0/mingw_64/include/QtNetwork -isystem F:/Qt/6.7.0/mingw_64/include/QtHttpServer -isystem F:/Qt/6.7.0/mingw_64/include/QtWebSockets
-  OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
-  OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
-
 build CMakeFiles/EntranceControlCloud.dir/orm.cpp.obj: CXX_COMPILER__EntranceControlCloud_unscanned_Debug G$:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/orm.cpp || cmake_object_order_depends_target_EntranceControlCloud
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_HTTPSERVER_LIB -DQT_NETWORK_LIB -DQT_WEBSOCKETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\EntranceControlCloud.dir\orm.cpp.obj.d
@@ -137,6 +121,30 @@ build CMakeFiles/EntranceControlCloud.dir/rfiditem.cpp.obj: CXX_COMPILER__Entran
   OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
   OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
 
+build CMakeFiles/EntranceControlCloud.dir/entrancerecord.cpp.obj: CXX_COMPILER__EntranceControlCloud_unscanned_Debug G$:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entrancerecord.cpp || cmake_object_order_depends_target_EntranceControlCloud
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_HTTPSERVER_LIB -DQT_NETWORK_LIB -DQT_WEBSOCKETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\EntranceControlCloud.dir\entrancerecord.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IG:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud_autogen/include -isystem F:/Qt/6.7.0/mingw_64/include/QtCore -isystem F:/Qt/6.7.0/mingw_64/include -isystem F:/Qt/6.7.0/mingw_64/mkspecs/win32-g++ -isystem F:/Qt/6.7.0/mingw_64/include/QtNetwork -isystem F:/Qt/6.7.0/mingw_64/include/QtHttpServer -isystem F:/Qt/6.7.0/mingw_64/include/QtWebSockets
+  OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
+  OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
+
+build CMakeFiles/EntranceControlCloud.dir/authenticator.cpp.obj: CXX_COMPILER__EntranceControlCloud_unscanned_Debug G$:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/authenticator.cpp || cmake_object_order_depends_target_EntranceControlCloud
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_HTTPSERVER_LIB -DQT_NETWORK_LIB -DQT_WEBSOCKETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\EntranceControlCloud.dir\authenticator.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IG:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud_autogen/include -isystem F:/Qt/6.7.0/mingw_64/include/QtCore -isystem F:/Qt/6.7.0/mingw_64/include -isystem F:/Qt/6.7.0/mingw_64/mkspecs/win32-g++ -isystem F:/Qt/6.7.0/mingw_64/include/QtNetwork -isystem F:/Qt/6.7.0/mingw_64/include/QtHttpServer -isystem F:/Qt/6.7.0/mingw_64/include/QtWebSockets
+  OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
+  OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
+
+build CMakeFiles/EntranceControlCloud.dir/entrancehistory.cpp.obj: CXX_COMPILER__EntranceControlCloud_unscanned_Debug G$:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entrancehistory.cpp || cmake_object_order_depends_target_EntranceControlCloud
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_HTTPSERVER_LIB -DQT_NETWORK_LIB -DQT_WEBSOCKETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\EntranceControlCloud.dir\entrancehistory.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IG:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud_autogen/include -isystem F:/Qt/6.7.0/mingw_64/include/QtCore -isystem F:/Qt/6.7.0/mingw_64/include -isystem F:/Qt/6.7.0/mingw_64/mkspecs/win32-g++ -isystem F:/Qt/6.7.0/mingw_64/include/QtNetwork -isystem F:/Qt/6.7.0/mingw_64/include/QtHttpServer -isystem F:/Qt/6.7.0/mingw_64/include/QtWebSockets
+  OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
+  OBJECT_FILE_DIR = CMakeFiles\EntranceControlCloud.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target EntranceControlCloud
@@ -145,7 +153,7 @@ build CMakeFiles/EntranceControlCloud.dir/rfiditem.cpp.obj: CXX_COMPILER__Entran
 #############################################
 # Link the executable EntranceControlCloud.exe
 
-build EntranceControlCloud.exe: CXX_EXECUTABLE_LINKER__EntranceControlCloud_Debug CMakeFiles/EntranceControlCloud.dir/EntranceControlCloud_autogen/mocs_compilation.cpp.obj CMakeFiles/EntranceControlCloud.dir/main.cpp.obj CMakeFiles/EntranceControlCloud.dir/entranceservercloud.cpp.obj CMakeFiles/EntranceControlCloud.dir/httprequest.cpp.obj CMakeFiles/EntranceControlCloud.dir/httpresponse.cpp.obj CMakeFiles/EntranceControlCloud.dir/orm.cpp.obj CMakeFiles/EntranceControlCloud.dir/httpserver.cpp.obj CMakeFiles/EntranceControlCloud.dir/websocketserver.cpp.obj CMakeFiles/EntranceControlCloud.dir/websocketrequest.cpp.obj CMakeFiles/EntranceControlCloud.dir/websocketresponse.cpp.obj CMakeFiles/EntranceControlCloud.dir/rfiditem.cpp.obj | F$:/Qt/6.7.0/mingw_64/lib/libQt6HttpServer.a F$:/Qt/6.7.0/mingw_64/lib/libQt6WebSockets.a F$:/Qt/6.7.0/mingw_64/lib/libQt6Network.a F$:/Qt/6.7.0/mingw_64/lib/libQt6Core.a || EntranceControlCloud_autogen EntranceControlCloud_autogen_timestamp_deps
+build EntranceControlCloud.exe: CXX_EXECUTABLE_LINKER__EntranceControlCloud_Debug CMakeFiles/EntranceControlCloud.dir/EntranceControlCloud_autogen/mocs_compilation.cpp.obj CMakeFiles/EntranceControlCloud.dir/main.cpp.obj CMakeFiles/EntranceControlCloud.dir/entranceservercloud.cpp.obj CMakeFiles/EntranceControlCloud.dir/orm.cpp.obj CMakeFiles/EntranceControlCloud.dir/httpserver.cpp.obj CMakeFiles/EntranceControlCloud.dir/websocketserver.cpp.obj CMakeFiles/EntranceControlCloud.dir/websocketrequest.cpp.obj CMakeFiles/EntranceControlCloud.dir/websocketresponse.cpp.obj CMakeFiles/EntranceControlCloud.dir/rfiditem.cpp.obj CMakeFiles/EntranceControlCloud.dir/entrancerecord.cpp.obj CMakeFiles/EntranceControlCloud.dir/authenticator.cpp.obj CMakeFiles/EntranceControlCloud.dir/entrancehistory.cpp.obj | F$:/Qt/6.7.0/mingw_64/lib/libQt6HttpServer.a F$:/Qt/6.7.0/mingw_64/lib/libQt6WebSockets.a F$:/Qt/6.7.0/mingw_64/lib/libQt6Network.a F$:/Qt/6.7.0/mingw_64/lib/libQt6Core.a || EntranceControlCloud_autogen EntranceControlCloud_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = F:/Qt/6.7.0/mingw_64/lib/libQt6HttpServer.a  F:/Qt/6.7.0/mingw_64/lib/libQt6WebSockets.a  F:/Qt/6.7.0/mingw_64/lib/libQt6Network.a  F:/Qt/6.7.0/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\EntranceControlCloud.dir
@@ -247,7 +255,7 @@ build EntranceControlCloud_autogen/timestamp EntranceControlCloud_autogen/mocs_c
 #############################################
 # Phony custom command for CMakeFiles\EntranceControlCloud_autogen_timestamp_deps
 
-build CMakeFiles/EntranceControlCloud_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/EntranceControlCloud_autogen_timestamp_deps: phony F$:/Qt/6.7.0/mingw_64/lib/libQt6Network.a F$:/Qt/6.7.0/mingw_64/./bin/moc.exe F$:/Qt/6.7.0/mingw_64/lib/libQt6Core.a F$:/Qt/6.7.0/mingw_64/lib/libQt6HttpServer.a
+build CMakeFiles/EntranceControlCloud_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/EntranceControlCloud_autogen_timestamp_deps: phony F$:/Qt/6.7.0/mingw_64/lib/libQt6Core.a F$:/Qt/6.7.0/mingw_64/./bin/moc.exe F$:/Qt/6.7.0/mingw_64/lib/libQt6Network.a F$:/Qt/6.7.0/mingw_64/lib/libQt6HttpServer.a
 
 
 #############################################

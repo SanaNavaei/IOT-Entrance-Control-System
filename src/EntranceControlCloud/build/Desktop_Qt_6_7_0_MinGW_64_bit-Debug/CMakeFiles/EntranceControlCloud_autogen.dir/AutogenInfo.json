@@ -187,21 +187,27 @@
 	"HEADERS" : 
 	[
 		[
+			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/authenticator.h",
+			"MU",
+			"EWIEGA46WW/moc_authenticator.cpp",
+			null
+		],
+		[
+			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entrancehistory.h",
+			"MU",
+			"EWIEGA46WW/moc_entrancehistory.cpp",
+			null
+		],
+		[
+			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entrancerecord.h",
+			"MU",
+			"EWIEGA46WW/moc_entrancerecord.cpp",
+			null
+		],
+		[
 			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entranceservercloud.h",
 			"MU",
 			"EWIEGA46WW/moc_entranceservercloud.cpp",
-			null
-		],
-		[
-			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/httprequest.h",
-			"MU",
-			"EWIEGA46WW/moc_httprequest.cpp",
-			null
-		],
-		[
-			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/httpresponse.h",
-			"MU",
-			"EWIEGA46WW/moc_httpresponse.cpp",
 			null
 		],
 		[
@@ -314,17 +320,22 @@
 	"SOURCES" : 
 	[
 		[
+			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/authenticator.cpp",
+			"MU",
+			null
+		],
+		[
+			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entrancehistory.cpp",
+			"MU",
+			null
+		],
+		[
+			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entrancerecord.cpp",
+			"MU",
+			null
+		],
+		[
 			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/entranceservercloud.cpp",
-			"MU",
-			null
-		],
-		[
-			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/httprequest.cpp",
-			"MU",
-			null
-		],
-		[
-			"G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/httpresponse.cpp",
 			"MU",
 			null
 		],
