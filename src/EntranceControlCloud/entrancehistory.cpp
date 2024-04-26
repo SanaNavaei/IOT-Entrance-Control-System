@@ -15,6 +15,25 @@ EntranceHistory::~EntranceHistory()
 void EntranceHistory::addEntranceRecord(EntranceRecord *record)
 {
     m_entranceRecords.push_back(record);
+    
+    QFile file(m_entranceHistoryPath);
+    if (!file.open(QIODevice::Append | QIODevice::Text))
+    {
+        qWarning() << "Could not open entrance history file for writing";
+        return;
+    }
+    
+    file.seek(file.size() - 3);
+    QTextStream out(&file);
+    out << ",\n";
+    QJsonObject obj;
+    obj.insert("tag", record->rfidTag());
+    obj.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
+    obj.insert("permitted", record->isPermitted());
+    QJsonDocument doc(obj);
+    out << doc.toJson(QJsonDocument::Indented);
+    out << "]";
+    file.close();
 }
 
 QVector<EntranceRecord *> EntranceHistory::getEntranceRecords(int maxRecords)
