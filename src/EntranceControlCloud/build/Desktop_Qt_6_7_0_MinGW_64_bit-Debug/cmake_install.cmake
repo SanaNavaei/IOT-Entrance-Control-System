@@ -1,4 +1,4 @@
-# Install script for directory: G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud
+# Install script for directory: D:/CyberPhysicalSystem/Projects/CPS_IOT_HW/src/EntranceControlCloud
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,15 +34,15 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "F:/Qt/Tools/mingw1120_64/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "E:/Qt_installer/Tools/mingw1120_64/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud.exe")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "D:/CyberPhysicalSystem/Projects/CPS_IOT_HW/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/EntranceControlCloud.exe")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/EntranceControlCloud.exe" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/EntranceControlCloud.exe")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "F:/Qt/Tools/mingw1120_64/bin/strip.exe" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/EntranceControlCloud.exe")
+      execute_process(COMMAND "E:/Qt_installer/Tools/mingw1120_64/bin/strip.exe" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/EntranceControlCloud.exe")
     endif()
   endif()
 endif()
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "G:/Uni/term_8/CPS/Projects/CA1_IOT/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/CyberPhysicalSystem/Projects/CPS_IOT_HW/src/EntranceControlCloud/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
