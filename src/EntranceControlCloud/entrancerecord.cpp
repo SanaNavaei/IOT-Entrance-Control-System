@@ -16,6 +16,14 @@ EntranceRecord::EntranceRecord(QString rfidTag, QDateTime entranceTime, QObject 
     m_isPermitted = false;
 }
 
+EntranceRecord::EntranceRecord(QString rfidTag, QString entranceTime, QString isPermitted, QObject *parent)
+    : QObject{parent}
+{
+    m_rfidTag = rfidTag;
+    m_entranceTime = QDateTime::fromString(entranceTime, Qt::ISODate);
+    m_isPermitted = isPermitted == "true";
+}
+
 EntranceRecord::~EntranceRecord()
 {
 }
