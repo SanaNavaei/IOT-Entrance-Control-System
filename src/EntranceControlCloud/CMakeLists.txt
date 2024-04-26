@@ -18,8 +18,6 @@ add_executable(EntranceControlCloud
   orm.h orm.cpp
   httpserver.h httpserver.cpp
   websocketserver.h websocketserver.cpp
-  websocketrequest.h websocketrequest.cpp
-  websocketresponse.h websocketresponse.cpp
   entrancerecord.h entrancerecord.cpp
   authenticator.h authenticator.cpp
   monitoringsystemuser.h monitoringsystemuser.cpp
