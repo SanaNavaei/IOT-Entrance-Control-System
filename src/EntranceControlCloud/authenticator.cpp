@@ -17,6 +17,16 @@ bool Authenticator::isPermitted(const QString &tag)
     return m_permittedTags.contains(tag);
 }
 
+void Authenticator::authenticateRFID(const QJsonDocument &jsonDoc)
+{
+    QJsonObject jsonObj = jsonDoc.object();
+    QString rfidTag = jsonObj.value("tag").toString();
+    if (isPermitted(rfidTag))
+        emit authenticatedRFID(jsonDoc);
+    else
+        emit unauthenticatedRFID();
+}
+
 void Authenticator::loadPermittedTags()
 {
     QFile file(m_permittedTagsPath);

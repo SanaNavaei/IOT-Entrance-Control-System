@@ -2,12 +2,17 @@
 #define AUTHENTICATOR_H
 
 #include <QObject>
+#include <Qvector>
 #include <QString>
-#include <QStringList>
 #include <QFile>
 #include <QTextStream>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <QDebug>
 
+#include "entrancerecord.h"
+#include "entrancehistory.h"
 class Authenticator : public QObject
 {
     Q_OBJECT
@@ -18,10 +23,15 @@ public:
     bool isPermitted(const QString &tag);
 
 Q_SIGNALS:
+    void authenticatedRFID(const QJsonDocument &jsonDoc);
+    void unauthenticatedRFID();
+
+public slots:
+    void authenticateRFID(const QJsonDocument &jsonDoc);
 
 private:
-    QString m_permittedTagsPath;    
-    QStringList m_permittedTags;
+    QString m_permittedTagsPath;
+    QVector<QString> m_permittedTags;
     void loadPermittedTags();
     void savePermittedTags();
 };
