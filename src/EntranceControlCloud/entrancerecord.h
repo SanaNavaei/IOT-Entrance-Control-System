@@ -12,6 +12,7 @@ class EntranceRecord : public QObject
 public:
     EntranceRecord(QString rfidTag, QObject *parent = nullptr);
     EntranceRecord(QString rfidTag, QDateTime entranceTime, QObject *parent = nullptr);
+    EntranceRecord(QString rfidTag, bool isPermitted, QObject *parent = nullptr);
     EntranceRecord(QString rfidTag, QString entranceTime, QString isPermitted, QObject *parent = nullptr); // (1
     ~EntranceRecord();
     QString rfidTag() const;
