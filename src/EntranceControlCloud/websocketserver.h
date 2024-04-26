@@ -17,7 +17,7 @@ class WebSocketServer : public QObject
     Q_OBJECT
 
 public:
-    WebSocketServer(const QHostAddress &address, quint16 port, QObject *parent = nullptr);
+    WebSocketServer(const QHostAddress &address, quint16 port = 5051, QObject *parent = nullptr);
 
 Q_SIGNALS:
     void historyRequested();
