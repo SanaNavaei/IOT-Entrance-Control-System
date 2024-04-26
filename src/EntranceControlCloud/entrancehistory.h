@@ -33,13 +33,13 @@ public slots:
     void getEntranceRecordsHistory();
     void addEntranceRecord(EntranceRecord *record);
     void addAuthenticatedFID(const QJsonDocument &jsonDoc);
+    void saveEntranceRecords();
 
 private:
     int m_lastRecordIndex = 0;
     QString m_entranceHistoryPath;
     QVector<EntranceRecord *> m_entranceRecords;
     void loadEntranceRecords();
-    void saveEntranceRecords();
 };
 
 #endif // ENTRANCEHISTORY_H
