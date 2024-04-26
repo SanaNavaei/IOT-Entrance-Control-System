@@ -1,0 +1,23 @@
+[
+    {
+        "type" : "authenticate",
+        "data" : {
+            "username" : "test",
+            "password" : "test"
+        }
+    },
+    {
+        "type" : "authenticate",
+        "data" : {
+            "username" : "test1",
+            "password" : "test1"
+        }
+    },
+    {
+        "type" : "authenticate",
+        "data" : {
+            "username" : "test2",
+            "password" : "test2"
+        }
+    }
+]

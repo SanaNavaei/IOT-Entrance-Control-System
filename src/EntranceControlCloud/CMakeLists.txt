@@ -20,9 +20,12 @@ add_executable(EntranceControlCloud
   websocketserver.h websocketserver.cpp
   websocketrequest.h websocketrequest.cpp
   websocketresponse.h websocketresponse.cpp
-  rfiditem.h rfiditem.cpp
   entrancerecord.h entrancerecord.cpp
   authenticator.h authenticator.cpp
+  monitoringsystemuser.h monitoringsystemuser.cpp
+  monitoringsystemauthenticator.h monitoringsystemauthenticator.cpp
+  entrancehistory.h entrancehistory.cpp
+  data/entrance_history.json data/users.json data/rfid_tags.json
 )
 target_link_libraries(EntranceControlCloud Qt${QT_VERSION_MAJOR}::Core Qt6::Network Qt6::HttpServer)
 
