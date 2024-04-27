@@ -12,6 +12,7 @@ class WebSocketRequest
 public:
     WebSocketRequest();
     QString authenticationRequest(const QString &username, const QString &password);
+    QString historyRequest();
 };
 
 }
