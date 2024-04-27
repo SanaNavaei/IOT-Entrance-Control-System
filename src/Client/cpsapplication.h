@@ -7,6 +7,7 @@
 #include "cpsmainwindow.h"
 #include "cpshistorywindow.h"
 #include "cpswindowsapitools.h"
+#include "cpswebsocketclient.h"
 
 namespace CPS {
 
@@ -31,9 +32,7 @@ private: // methods
 private: // members
     MainWindow    *_window;
     HistoryWindow *_history;
-
-    //TODO:
-    //YourSocketClass *_YourSocketClassInstance;
+    WebSocketClient *_webSocket;
 };
 
 } // end of CPS
