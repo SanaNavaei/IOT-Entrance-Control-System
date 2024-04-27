@@ -23,7 +23,7 @@ void WebSocketClient::findRequest(const QString &data)
 {
     QJsonDocument jsonDocument = QJsonDocument::fromJson(data.toUtf8());
     ResponseType responseType = findResponseType(jsonDocument);
-    qDebug() << "Response type" << int(responseType);
+
     switch (responseType)
     {
     case ResponseType::History: {
@@ -69,6 +69,11 @@ WebSocketClient::ResponseType WebSocketClient::findResponseType(const QJsonDocum
 
 void WebSocketClient::connectToServer(const QString &address, const QString &username, const QString &password)
 {
+    if (username.isEmpty() || password.isEmpty()) {
+        qDebug() << "Username or password is empty.";
+        return;
+    }
+
     QUrl url = QUrl(address);
     emit connectionChanged(false);
     _webSocket.open(url);
