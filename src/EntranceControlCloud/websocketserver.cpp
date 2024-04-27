@@ -98,8 +98,8 @@ void WebSocketServer::sendEntranceRecord(EntranceRecord *record)
 {
     QJsonObject jsonObj;
     jsonObj.insert("username", record->rfidTag());
-    jsonObject.insert("time", record->entranceTime().toString("hh:mm"));
-    jsonObject.insert("date", record->entranceTime().toString("MM/dd/yyyy"));
+    jsonObj.insert("time", record->entranceTime().toString("hh:mm"));
+    jsonObj.insert("date", record->entranceTime().toString("MM/dd/yyyy"));
     jsonObj.insert("permitted", record->isPermitted());
     QJsonDocument jsonDoc(jsonObj);
     QByteArray jsonString = jsonDoc.toJson();

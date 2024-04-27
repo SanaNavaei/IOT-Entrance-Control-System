@@ -22,16 +22,48 @@ void WebSocketClient::connected()
 void WebSocketClient::findRequest(const QString &data)
 {
     QJsonDocument jsonDocument = QJsonDocument::fromJson(data.toUtf8());
-    if (jsonDocument.isArray()) {
+    ResponseType responseType = findResponseType(jsonDocument);
+    qDebug() << "Response type" << int(responseType);
+    switch (responseType)
+    {
+    case ResponseType::History: {
         QJsonArray jsonArray = jsonDocument.array();
         emit historyReady(jsonArray);
-    }
-    else if (jsonDocument.object().contains("isAuthenticated")) {
+        break; }
+    case ResponseType::Authenticate: {
         QJsonObject jsonObject = jsonDocument.object();
         QString isAuthenticated = jsonObject["isAuthenticated"].toString();
         if (isAuthenticated == "false") {
             emit connectionChanged(true);
         }
+        break; }
+    case ResponseType::RFID: {
+        QJsonObject jsonObject = jsonDocument.object();
+        qDebug() << jsonObject;
+        if (jsonObject["permitted"].toBool())
+        {
+            QString username = jsonObject["username"].toString();
+            QString date = jsonObject["date"].toString();
+            QString time = jsonObject["time"].toString();
+
+            emit newUser(username, date, time);
+            qDebug() << "New user: " << username;
+        }
+        break; }
+    default:
+        break;
+    }
+}
+
+WebSocketClient::ResponseType WebSocketClient::findResponseType(const QJsonDocument &jsonDocument) {
+    if (jsonDocument.isArray()) {
+        return ResponseType::History;
+    }
+    else if (jsonDocument.object().contains("isAuthenticated")) {
+        return ResponseType::Authenticate;
+    }
+    else {
+        return ResponseType::RFID;
     }
 }
 

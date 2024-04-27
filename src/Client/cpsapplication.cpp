@@ -13,7 +13,7 @@ Application::Application(QObject *parent)
     QObject::connect(_window, &MainWindow::historyuBtnClicked, _webSocket, &WebSocketClient::getHistory);
     QObject::connect(_webSocket, &WebSocketClient::historyReady, this, &Application::showHistoryWindow);
 
-    //QObject::connect(_webSocket, &WebSocketClient::newUser, _window, &MainWindow::showUserDetails);
+    QObject::connect(_webSocket, &WebSocketClient::newUser, _window, &MainWindow::showUserDetails);
 
     QObject::connect(_window, &MainWindow::connectBtnClicked, _webSocket, &WebSocketClient::connectToServer);
     QObject::connect(_webSocket, &WebSocketClient::connectionChanged, _window, &MainWindow::changeRightPanelEnabled);

@@ -14,10 +14,16 @@ class WebSocketClient : public QObject
 {
     Q_OBJECT
 public:
+    enum class ResponseType {
+        Authenticate,
+        History,
+        RFID
+    };
+
     explicit WebSocketClient(QObject *parent = nullptr);
 
 Q_SIGNALS:
-    void newUser();
+    void newUser(const QString &username, const QString &date, const QString &time);
     void connectionChanged(bool enabled);
     void historyReady(const QJsonArray &history);
 
@@ -28,6 +34,9 @@ public Q_SLOTS:
 private Q_SLOTS:
     void connected();
     void findRequest(const QString &data);
+
+private:
+    ResponseType findResponseType(const QJsonDocument &jsonDocument);
 
 private:
     QWebSocket _webSocket;
