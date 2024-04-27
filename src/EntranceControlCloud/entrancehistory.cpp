@@ -9,31 +9,58 @@ EntranceHistory::EntranceHistory(QString entranceHistoryPath, QObject *parent)
 
 EntranceHistory::~EntranceHistory()
 {
+    qDebug() << "Destructing EntranceHistory";
     saveEntranceRecords();
+    for (int i = 0; i < m_entranceRecords.size(); i++)
+    {
+        delete m_entranceRecords.at(i);
+    }
 }
 
 void EntranceHistory::addEntranceRecord(EntranceRecord *record)
 {
     m_entranceRecords.push_back(record);
-    
+
     QFile file(m_entranceHistoryPath);
-    if (!file.open(QIODevice::Append | QIODevice::Text))
+    if (!file.exists())
     {
-        qWarning() << "Could not open entrance history file for writing";
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            qDebug() << "Failed to create file: " << m_entranceHistoryPath;
+            return;
+        }
+
+        QTextStream out(&file);
+        QJsonObject obj;
+        out << "[\n";
+        obj.insert("tag", record->rfidTag());
+        obj.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
+        obj.insert("permitted", record->isPermitted());
+        QJsonDocument doc(obj);
+        out << doc.toJson(QJsonDocument::Indented);
+        out << "]";
+        file.close();
+    }
+    else if (!file.open(QIODevice::Append | QIODevice::Text))
+    {
+        qDebug() << "Failed to open file: " << m_entranceHistoryPath;
         return;
     }
-    
-    file.seek(file.size() - 3);
-    QTextStream out(&file);
-    out << ",\n";
-    QJsonObject obj;
-    obj.insert("tag", record->rfidTag());
-    obj.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
-    obj.insert("permitted", record->isPermitted());
-    QJsonDocument doc(obj);
-    out << doc.toJson(QJsonDocument::Indented);
-    out << "]";
-    file.close();
+
+    else
+    {
+        file.seek(file.size() - 3);
+        QTextStream out(&file);
+        out << ",\n";
+        QJsonObject obj;
+        obj.insert("tag", record->rfidTag());
+        obj.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
+        obj.insert("permitted", record->isPermitted());
+        QJsonDocument doc(obj);
+        out << doc.toJson(QJsonDocument::Indented);
+        out << "]";
+        file.close();
+    }
 }
 
 QVector<EntranceRecord *> EntranceHistory::getEntranceRecords(int maxRecords)
@@ -48,26 +75,8 @@ QVector<EntranceRecord *> EntranceHistory::getEntranceRecords(int maxRecords)
 
 void EntranceHistory::getEntranceRecordsHistory()
 {
-    qDebug() << "Entrance history requested";
     QJsonDocument entranceRecords = convertToJson(getEntranceRecords(10));
-    qDebug() << entranceRecords.toJson(QJsonDocument::Compact);
     emit getEntranceRecordsRequested(entranceRecords);
-}
-
-void EntranceHistory::addAuthenticatedFID(const QJsonDocument &jsonDoc)
-{
-    qDebug() << "Add Authenticated RFID";
-    QJsonObject jsonObj = jsonDoc.object();
-    QString rfidTag = jsonObj.value("tag").toString();
-    QDateTime date = QDateTime::currentDateTime();
-    EntranceRecord *record = new EntranceRecord(rfidTag, date);
-    addEntranceRecord(record);
-    QJsonObject responseObj;
-    responseObj.insert("tag", rfidTag);
-    responseObj.insert("timestamp", date.toString());
-    responseObj.insert("permitted", "true");
-    QJsonDocument responseDoc(responseObj);
-    emit sendAunthenticatedRFID(responseDoc);
 }
 
 QJsonDocument EntranceHistory::convertToJson(const QVector<EntranceRecord *> &records)
@@ -121,10 +130,11 @@ void EntranceHistory::loadEntranceRecords()
 
 void EntranceHistory::saveEntranceRecords()
 {
+    qDebug() << "Saving entrance records";
     QFile file(m_entranceHistoryPath);
     if (!file.open(QIODevice::WriteOnly))
     {
-        qWarning() << "Could not open entrance history file for writing";
+        qDebug() << "Failed to open file" << m_entranceHistoryPath;
         return;
     }
 

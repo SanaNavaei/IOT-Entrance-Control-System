@@ -8,6 +8,12 @@ MonitoringSystemAuthenticator::MonitoringSystemAuthenticator(const QString &syst
 
 MonitoringSystemAuthenticator::~MonitoringSystemAuthenticator()
 {
+    qDebug() << "Destructing MonitoringSystemAuthenticator";
+    for (int i = 0; i < m_monitoringSystemUsers.size(); i++)
+    {
+        delete m_monitoringSystemUsers.at(i);
+    }
+    m_monitoringSystemUsers.clear();
 }
 
 void MonitoringSystemAuthenticator::loadMonitoringSystemUsers()

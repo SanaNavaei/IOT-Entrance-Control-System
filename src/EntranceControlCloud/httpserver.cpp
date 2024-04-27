@@ -1,6 +1,6 @@
 #include "httpserver.h"
 
-HttpServer::HttpServer(Authenticator* authenticator, const QHostAddress &address, quint16 port, QObject *parent)
+HttpServer::HttpServer(Authenticator *authenticator, const QHostAddress &address, quint16 port, QObject *parent)
     : QObject{parent}
 {
     m_address = address;
@@ -9,15 +9,15 @@ HttpServer::HttpServer(Authenticator* authenticator, const QHostAddress &address
     m_server = new QHttpServer{this};
     qDebug() << "Server Initialized";
 
-    m_server->route("/", [this] (const QHttpServerRequest &req) {
-        return this->handleRequest(req);
-    });
+    m_server->route("/", [this](const QHttpServerRequest &req)
+                    { return this->handleRequest(req); });
 }
 
 void HttpServer::startServer()
 {
     int ok = m_server->listen(m_address, m_port);
-    if (!ok) {
+    if (!ok)
+    {
         qDebug() << "Server could not start";
         return;
     }
@@ -54,7 +54,8 @@ QHttpServerResponse HttpServer::handleRequest(const QHttpServerRequest &req)
         emit requestReceived(&req, &resp);
         return resp;
     }
-    else {
+    else
+    {
         QJsonObject response;
         response["message"] = "Invalid request";
         QJsonDocument responseDoc(response);

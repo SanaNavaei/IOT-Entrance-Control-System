@@ -46,11 +46,11 @@ void WebSocketServer::processTextMessage(const QString &message)
             QString password = dataObj.value("password").toString();
             emit authenticateRequested(username, password);
         }
-        else if (jsonObj.value("type").toString() == "rfid")
-        {
-            qDebug() << "RFID tag requested";
-            emit authenticateRFID(jsonDoc);
-        }
+        // else if (jsonObj.value("type").toString() == "rfid")
+        // {
+        //     qDebug() << "RFID tag requested";
+        //     emit authenticateRFID(jsonDoc);
+        // }
     }
 }
 
@@ -94,24 +94,16 @@ void WebSocketServer::sendUnauthenticate()
     }
 }
 
-void WebSocketServer::sendAunthenticatedRFID(const QJsonDocument &jsonDoc)
-{
-    if (m_client_socket)
-    {
-        QByteArray jsonString = jsonDoc.toJson();
-        QString jsonStringStr = QString::fromUtf8(jsonString);
-        m_client_socket->sendTextMessage(jsonStringStr);
-    }
-}
-
-void WebSocketServer::sendUnauthenticatedRFID()
+void WebSocketServer::sendEntranceRecord(EntranceRecord *record)
 {
     QJsonObject jsonObj;
-    jsonObj.insert("isValidRFIDTag", "false");
+    jsonObj.insert("tag", record->rfidTag());
+    jsonObj.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
+    jsonObj.insert("permitted", record->isPermitted());
     QJsonDocument jsonDoc(jsonObj);
+    QByteArray jsonString = jsonDoc.toJson();
     if (m_client_socket)
     {
-        QByteArray jsonString = jsonDoc.toJson();
         QString jsonStringStr = QString::fromUtf8(jsonString);
         m_client_socket->sendTextMessage(jsonStringStr);
     }

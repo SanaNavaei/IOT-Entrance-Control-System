@@ -17,22 +17,12 @@ bool Authenticator::isPermitted(const QString &tag)
     return m_permittedTags.contains(tag);
 }
 
-void Authenticator::authenticateRFID(const QJsonDocument &jsonDoc)
-{
-    QJsonObject jsonObj = jsonDoc.object();
-    QString rfidTag = jsonObj.value("tag").toString();
-    if (isPermitted(rfidTag))
-        emit authenticatedRFID(jsonDoc);
-    else
-        emit unauthenticatedRFID();
-}
-
 void Authenticator::loadPermittedTags()
 {
     QFile file(m_permittedTagsPath);
     if (!file.open(QIODevice::ReadOnly))
     {
-        qWarning() << "Could not open permitted tags file for reading";
+        qDebug() << "Failed to open file" << m_permittedTagsPath;
         return;
     }
 
@@ -50,7 +40,7 @@ void Authenticator::savePermittedTags()
     QFile file(m_permittedTagsPath);
     if (!file.open(QIODevice::WriteOnly))
     {
-        qWarning() << "Could not open permitted tags file for writing";
+        qDebug() << "Failed to open file" << m_permittedTagsPath;
         return;
     }
 

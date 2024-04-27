@@ -14,8 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Network HttpServer)
 
 add_executable(EntranceControlCloud
   main.cpp
-  entranceservercloud.h entranceservercloud.cpp
-  orm.h orm.cpp
+
+
   httpserver.h httpserver.cpp
   websocketserver.h websocketserver.cpp
   entrancerecord.h entrancerecord.cpp

@@ -22,14 +22,12 @@ public:
 Q_SIGNALS:
     void historyRequested();
     void authenticateRequested(const QString &username, const QString &password);
-    void authenticateRFID(const QJsonDocument &jsonDoc);
 
 public slots:
     void sendHistory(const QJsonDocument &jsonDoc);
     void sendAuthenticate();
     void sendUnauthenticate();
-    void sendAunthenticatedRFID(const QJsonDocument &jsonDoc);
-    void sendUnauthenticatedRFID();
+    void sendEntranceRecord(EntranceRecord *record);
 
 private slots:
     void onNewConnection();

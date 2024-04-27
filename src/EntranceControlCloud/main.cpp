@@ -39,11 +39,8 @@ int main(int argc, char *argv[])
     QObject::connect(&monitoringSystemAuthenticator, &MonitoringSystemAuthenticator::unauthenticated, &wsServer, &WebSocketServer::sendUnauthenticate);
     QObject::connect(&wsServer, &WebSocketServer::historyRequested, &entranceHistory, &EntranceHistory::getEntranceRecordsHistory);
     QObject::connect(&entranceHistory, &EntranceHistory::getEntranceRecordsRequested, &wsServer, &WebSocketServer::sendHistory);
-    QObject::connect(&wsServer, &WebSocketServer::authenticateRFID, &authenticator, &Authenticator::authenticateRFID);
-    QObject::connect(&authenticator, &Authenticator::authenticatedRFID, &entranceHistory, &EntranceHistory::addAuthenticatedFID);
-    QObject::connect(&entranceHistory, &EntranceHistory::sendAunthenticatedRFID, &wsServer, &WebSocketServer::sendAunthenticatedRFID);
-    QObject::connect(&authenticator, &Authenticator::unauthenticatedRFID, &wsServer, &WebSocketServer::sendUnauthenticatedRFID);
     QObject::connect(&httpServer, &HttpServer::newEntraceRecord, &entranceHistory, &EntranceHistory::addEntranceRecord);
+    QObject::connect(&httpServer, &HttpServer::newEntraceRecord, &wsServer, &WebSocketServer::sendEntranceRecord);
     QObject::connect(&a, &QCoreApplication::aboutToQuit, &entranceHistory, &EntranceHistory::saveEntranceRecords);
 
     httpServer.startServer();

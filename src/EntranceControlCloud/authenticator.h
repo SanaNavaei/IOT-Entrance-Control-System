@@ -22,12 +22,12 @@ public:
     ~Authenticator();
     bool isPermitted(const QString &tag);
 
-Q_SIGNALS:
-    void authenticatedRFID(const QJsonDocument &jsonDoc);
-    void unauthenticatedRFID();
+// Q_SIGNALS:
+//     void authenticatedRFID(const QJsonDocument &jsonDoc);
+//     void unauthenticatedRFID();
 
-public slots:
-    void authenticateRFID(const QJsonDocument &jsonDoc);
+// public slots:
+//     void authenticateRFID(const QJsonDocument &jsonDoc);
 
 private:
     QString m_permittedTagsPath;

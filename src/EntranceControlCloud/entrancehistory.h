@@ -27,13 +27,11 @@ public:
 
 Q_SIGNALS:
     void getEntranceRecordsRequested(const QJsonDocument &jsonDo);
-    void sendAunthenticatedRFID(const QJsonDocument &jsonDoc);
 
 public slots:
+    void saveEntranceRecords();
     void getEntranceRecordsHistory();
     void addEntranceRecord(EntranceRecord *record);
-    void addAuthenticatedFID(const QJsonDocument &jsonDoc);
-    void saveEntranceRecords();
 
 private:
     int m_lastRecordIndex = 0;
