@@ -22,17 +22,23 @@ void WebSocketClient::connected()
 void WebSocketClient::findRequest(const QString &data)
 {
     QJsonDocument jsonDocument = QJsonDocument::fromJson(data.toUtf8());
-
     if (jsonDocument.isArray()) {
         QJsonArray jsonArray = jsonDocument.array();
         emit historyReady(jsonArray);
     }
-
+    else if (jsonDocument.object().contains("isAuthenticated")) {
+        QJsonObject jsonObject = jsonDocument.object();
+        QString isAuthenticated = jsonObject["isAuthenticated"].toString();
+        if (isAuthenticated == "false") {
+            emit connectionChanged(true);
+        }
+    }
 }
 
 void WebSocketClient::connectToServer(const QString &address, const QString &username, const QString &password)
 {
     QUrl url = QUrl(address);
+    emit connectionChanged(false);
     _webSocket.open(url);
 
     _username = username;

@@ -97,8 +97,9 @@ void WebSocketServer::sendUnauthenticate()
 void WebSocketServer::sendEntranceRecord(EntranceRecord *record)
 {
     QJsonObject jsonObj;
-    jsonObj.insert("tag", record->rfidTag());
-    jsonObj.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
+    jsonObj.insert("username", record->rfidTag());
+    jsonObject.insert("time", record->entranceTime().toString("hh:mm"));
+    jsonObject.insert("date", record->entranceTime().toString("MM/dd/yyyy"));
     jsonObj.insert("permitted", record->isPermitted());
     QJsonDocument jsonDoc(jsonObj);
     QByteArray jsonString = jsonDoc.toJson();

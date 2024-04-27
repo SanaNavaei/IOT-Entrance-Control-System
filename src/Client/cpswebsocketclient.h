@@ -18,7 +18,7 @@ public:
 
 Q_SIGNALS:
     void newUser();
-    void connectionChanged();
+    void connectionChanged(bool enabled);
     void historyReady(const QJsonArray &history);
 
 public Q_SLOTS:
