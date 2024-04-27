@@ -7,6 +7,13 @@ WebSocketClient::WebSocketClient(QObject *parent)
       _request()
 {
     QObject::connect(&_webSocket, &QWebSocket::connected, this, &WebSocketClient::connected);
+    QObject::connect(&_webSocket, &QWebSocket::errorOccurred, this, &WebSocketClient::errorOccurred);
+}
+
+void WebSocketClient::errorOccurred(QAbstractSocket::SocketError error)
+{
+    qDebug() << "Error occurred: " << error;
+    emit connectionChanged(true);
 }
 
 void WebSocketClient::connected()
@@ -39,7 +46,6 @@ void WebSocketClient::findRequest(const QString &data)
         break; }
     case ResponseType::RFID: {
         QJsonObject jsonObject = jsonDocument.object();
-        qDebug() << jsonObject;
         if (jsonObject["permitted"].toBool())
         {
             QString username = jsonObject["username"].toString();

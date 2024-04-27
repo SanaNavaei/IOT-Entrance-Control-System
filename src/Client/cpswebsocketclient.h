@@ -33,6 +33,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void connected();
+    void errorOccurred(QAbstractSocket::SocketError error);
     void findRequest(const QString &data);
 
 private:
