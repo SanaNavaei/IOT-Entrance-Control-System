@@ -85,8 +85,9 @@ QJsonDocument EntranceHistory::convertToJson(const QVector<EntranceRecord *> &re
     for (const EntranceRecord *record : records)
     {
         QJsonObject jsonObject;
-        jsonObject.insert("tag", record->rfidTag());
-        jsonObject.insert("timestamp", record->entranceTime().toString(Qt::ISODate));
+        jsonObject.insert("username", record->rfidTag());
+        jsonObject.insert("time", record->entranceTime().toString("hh:mm"));
+        jsonObject.insert("date", record->entranceTime().toString("MM/dd/yyyy"));
         jsonObject.insert("permitted", record->isPermitted());
         jsonArray.append(jsonObject);
     }

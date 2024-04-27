@@ -21,7 +21,13 @@ void WebSocketClient::connected()
 
 void WebSocketClient::findRequest(const QString &data)
 {
-    qDebug() << data;
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(data.toUtf8());
+
+    if (jsonDocument.isArray()) {
+        QJsonArray jsonArray = jsonDocument.array();
+        emit historyReady(jsonArray);
+    }
+
 }
 
 void WebSocketClient::connectToServer(const QString &address, const QString &username, const QString &password)
@@ -32,5 +38,10 @@ void WebSocketClient::connectToServer(const QString &address, const QString &use
     _username = username;
     _password = password;
 }    
+
+void WebSocketClient::getHistory()
+{
+    _webSocket.sendTextMessage(_request.historyRequest());
+}
 
 } // end of CPS

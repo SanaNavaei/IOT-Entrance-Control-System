@@ -5,6 +5,7 @@
 #include <QUrl>
 #include <QtWebSockets/QWebSocket>
 #include <QDebug>
+#include <QJsonArray>
 #include "cpswebsocketrequest.h"
 
 namespace CPS {
@@ -18,9 +19,11 @@ public:
 Q_SIGNALS:
     void newUser();
     void connectionChanged();
+    void historyReady(const QJsonArray &history);
 
 public Q_SLOTS:
     void connectToServer(const QString &address, const QString &username, const QString &password);
+    void getHistory();
 
 private Q_SLOTS:
     void connected();

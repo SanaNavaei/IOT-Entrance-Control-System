@@ -25,7 +25,7 @@ public:
 Q_SIGNALS:
 
 private Q_SLOTS:
-    void showHistoryWindow();
+    void showHistoryWindow(const QJsonArray &history);
 
 private: // methods
 
