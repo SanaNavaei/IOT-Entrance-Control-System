@@ -8,6 +8,7 @@ WebSocketClient::WebSocketClient(QObject *parent)
 {
     QObject::connect(&_webSocket, &QWebSocket::connected, this, &WebSocketClient::connected);
     QObject::connect(&_webSocket, &QWebSocket::errorOccurred, this, &WebSocketClient::errorOccurred);
+    QObject::connect(&_webSocket, &QWebSocket::textMessageReceived, this, &WebSocketClient::findRequest);
 }
 
 void WebSocketClient::errorOccurred(QAbstractSocket::SocketError error)
@@ -18,9 +19,7 @@ void WebSocketClient::errorOccurred(QAbstractSocket::SocketError error)
 
 void WebSocketClient::connected()
 {
-    QObject::connect(&_webSocket, &QWebSocket::textMessageReceived, this, &WebSocketClient::findRequest);
     qDebug() << "Connected to server.";
-
     QString authenticationRequest = _request.authenticationRequest(_username, _password);
     _webSocket.sendTextMessage(authenticationRequest);
     qDebug() << "Sent authentication request.";
