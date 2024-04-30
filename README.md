@@ -25,6 +25,7 @@ This project is about to implement a cloud-based entrance control system. The sy
   - [Embedded Part](#embedded-part)
     - [Handling the Ethernet Connection and RFID Reader](#handling-the-ethernet-connection-and-rfid-reader)
     - [Handling the DC Motor and LEDs](#handling-the-dc-motor-and-leds)
+  - [Results](#results)
 - [Contributions](#contributions)
 
 
@@ -781,3 +782,23 @@ void accessDenied() {
   }
 }
 ```
+
+## Results
+### **Access Granted in the Proteus simulation**
+![proteusAccessGranted](assets/proteusAccessGranted.png "proteusAccessGranted")
+
+### **Access Denied in the Proteus simulation**
+![proteusAccessDenied](assets/proteusAccessDenied.png "proteusAccessDenied")
+
+### **Successful Login**
+![successfulLogin](assets/successfulLogin.png "successfulLogin")
+
+### **Unsuccessful Login**
+![unsuccessfulLogin](assets/unsuccessfulLogin.png "unsuccessfulLogin")
+
+### **Receiving New Record from RFID**
+![newRecord](assets/newRecord.png "newRecord")
+
+### **History of Entrance Records**
+![history](assets/history.png "history")
+
