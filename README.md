@@ -21,11 +21,12 @@ This project is about to implement a cloud-based entrance control system. The sy
     - [Authenticator](#authenticator)
     - [MonitoringSystemUser](#monitoringsystemuser)
     - [MonitoringSystemAuthenticator](#monitoringsystemauthenticator)
-- [Questions](#questions)
-
-- [How to run](#how-to-run)
-
+  - [Proteus Simulation](#proteus-simulation)
+  - [Embedded Part](#embedded-part)
+    - [Handling the Ethernet Connection and RFID Reader](#handling-the-ethernet-connection-and-rfid-reader)
+    - [Handling the DC Motor and LEDs](#handling-the-dc-motor-and-leds)
 - [Contributions](#contributions)
+
 
 ## Requirements
 
@@ -484,4 +485,299 @@ private:
 };
 ```
 
-## How to Run
+## Proteus Simulation
+![proteus_simulation](assets/proteusSimulation.png "proteus_simulation")
+As we can see the image of the Proteus simulation consists of the following components:
+- Two Arduino boards - one foe handling the ethernet connection and handling the RFID reader and the other for handling the DC motor, LEDs, and DC motor.
+- ENC28J60 Ethernet Module - for handling the ethernet connection.
+- RFID Reader - for reading the RFID tags.
+- DC Motor - for controlling the entrance.
+- LEDs - for indicating the status of the entrance.
+- LM016L LCD - for displaying the status of the entrance (access denied or not).
+
+In order to handle the communication between the two Arduino boards, we connect the Rx pin of the Arduino board that handles the DC motor to the Tx pin of the Arduino board that handles the RFID reader. By doing this, we receive the server response from the Arduino connected to the ethernet module and write it on `Serial` port. The other Arduino board reads the response from the `Serial` port and controls the DC motor and LEDs accordingly.
+
+## Embedded Part
+ In the embedded part, we have two Arduino boards. One of them is responsible for handling the RFID reader and the other is responsible for handling the DC motor and LEDs. The Arduino board that handles the RFID reader sends the RFID tag to the server and receives the response from the server so we need to have an `.ino` file for each Arduino board.
+
+### Handling the Ethernet Connection and RFID Reader
+In order to handle the ethernet connection we installed the `Microsoft KM-TEST Loopback Adapter` and set the IP address of the ethernet module to an unused IP address in the network in our computer. The ip address is `169.254.238.215` in this case. The mac address is also a unique address that is used to identify the ethernet module in the network. Also we set the ip address in Ethernet module in Proteus to `169.254.238.215` which is also the gateway address in Arduino code. 
+```ino
+static byte myip[] = { 169, 254, 238, 216 };
+static byte gwip[] = { 169, 254, 238, 215 };
+static byte mymac[] = { 0x74, 0x69, 0x69, 0x2D, 0x30, 0x31 };
+static byte serverip[] = { 169, 254, 238, 215 };
+```
+
+The default pins for connecting terminal are Tx and Rx pins of the Arduino board. In order to add another terminal to the Arduino board, we need to use the `SoftwareSerial` library And connect the terminal to ports `8` and `9` instead of the default Rx and Tx pins. 
+
+```ino 
+The Arduino code consists of two main parts:
+- `setup()` function: In this function, we initialize the ethernet module, RFID reader, and serial communication. We set the `BAUD_RATE` to 9600 which is a common baud rate for serial communication. We also set the `persistTcpConnection` to `true` so that the connection is persistent. `ether.copyIP()` function is used to copy the IP address of the server to the ethernet module. 
+
+```ino
+void setup() {
+  tagScanner.begin(BAUD_RATE);
+  Serial.begin(BAUD_RATE);
+
+  ether.begin(sizeof Ethernet::buffer, mymac, SS);
+  ether.staticSetup(myip, gwip);
+  ether.copyIp(ether.hisip, serverip);
+  ether.persistTcpConnection(true);
+} 
+```
+- `loop()` function: This function runs continuously. In this function, we read the RFID tag and send it to the server. We also receive the response from the server and control the DC motor and LEDs accordingly. 
+
+```ino
+void loop() {
+  char rfidTag[DIGIT_COUNT];
+  word pos = ether.packetLoop(ether.packetReceive());
+  if (readRfid(rfidTag)) {
+        sendToServer(rfidTag);
+  }
+  recieveFromServer(rfidTag);
+}
+```
+**`readRfid()`:**  We read the RFID tag by using the `readRfid()` function. In this function, we read the RFID tag character by character and store it in a string. When the number of characters is equal to the `DIGIT_COUNT` which is 10 in this case, we copy the RFID tag to the `rfidTag` array and return true. 
+
+```ino
+String rfid = "";
+char c;
+int charCount = 0;
+
+bool readRfid(char rfidTag[]) {
+  while(tagScanner.available()>0) {
+    c = tagScanner.read(); 
+    charCount++;
+    rfid += c;
+    if (charCount == DIGIT_COUNT) {
+      strcpy(rfidTag, rfid.c_str());
+      rfid = "";
+      charCount = 0;
+      return true; 
+    }
+  }
+  return false;
+}
+```
+
+**`sendToServer()`:** We send the RFID tag to the server by using the `sendToServer()` function. In this function, we create a JSON object that contains the RFID tag and send it to the server. We an instance of `Stash` class to create the JSON object. We use the `stash.print()` function to add the RFID tag to the JSON object. We then save the JSON object and send it to the server. Stash saves the JSON object in the memory and prepares the HTTP request to send it to the server. 
+
+```ino
+void sendToServer(char rfidTag[]) {
+    byte sd = stash.create();
+    stash.print("{");
+    stash.print("\r\"type\": \"rfid\",");
+    stash.print("\r\"data\": {");
+    stash.print("\r\r\"tag\": ");
+    stash.print("\"");
+    for (int i = 0; rfidTag[i] != '\0'; i++) {
+        stash.print(rfidTag[i]);
+    }
+    stash.print("\"");
+    stash.print("\r}");
+    stash.print("}");
+    stash.save();
+
+    Stash::prepare(PSTR("POST http://$F/ HTTP/1.1" "\r\n"
+                  "Host: $F" "\r\n"
+                  "Content-Length: $D" "\r\n"
+                  "Content-Type: application/json" "\r\n"
+                  "\r\n"
+                  "$H"),
+    server, server, stash.size(), sd);
+    session = ether.tcpSend();
+}
+```
+**`recieveFromServer()`:** We receive the response from the server by using the recieveFromServer() function. In this function, we parse the response and print the status code and the RFID tag to the serial port in order to use it in the other Arduino board for controlling the DC motor and LEDs. 
+
+```ino
+void recieveFromServer(char rfidTag[]) {
+  char* response = ether.tcpReply(session);
+  if (response != nullptr) {
+    const char* statusStart = strstr(response, "HTTP/1.1 ");
+    if (statusStart != NULL) {
+        statusStart += strlen("HTTP/1.1 ");
+        int statusCode;
+        sscanf(statusStart, "%d", &statusCode);
+        Serial.print(statusCode);
+        Serial.print(":");
+        for (int i = 0; i < DIGIT_COUNT; i++) {
+          Serial.print(rfidTag[i]);
+        }
+    }
+  }
+}
+```
+
+### Handling the DC Motor and LEDs
+In order to handle the DC motor and LEDs, we need to have an `.ino` file for the Arduino board that handles the DC motor and LEDs.
+
+We make Status struct in order to keep the status of the system and turn off the LEDs and DC motor after a certain time. 
+
+```ino
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+AltSoftSerial resPrinter;
+
+struct Status {
+  bool isRedLedOn;
+  bool isGreenLedOn;
+  bool isPrintedOnMonitor;
+  bool isDoorOpen;
+
+  unsigned long lastTimeRedLedOn;
+  unsigned long lastTimeGreenLedOn;
+  unsigned long lastTimeMonitorPrinted;
+  unsigned long lastTimeDoorOpen;
+};
+```
+
+We also define the pins for the LEDs, and DC motor, and LCD screen. 
+
+```ino
+#define GREEN_LED 13
+#define RED_LED 10
+#define MOTOR_IN1 7
+#define MOTOR_IN2 6
+#define DELAY 30000
+#define DELAY_RED_LED 3000
+#define BAUD_RATE 9600
+#define DIGIT_COUNT 10
+#define DELAY_FOR_90_DEGREES_CLOCKWISE 95
+#define DELAY_FOR_90_DEGREES_COUNTERCLOCKWISE 82
+#define SUCCESS_CODE 200
+#define FAILURE_CODE 403
+#define ACCESS_DENIED "Access Denied!"
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+AltSoftSerial resPrinter;
+```
+**`setup():`** In the setup function, we initialize the serial communication, pins for the LEDs, DC motor, and LCD screen. We also set the baud rate to 9600.
+
+```ino
+void setup() {
+  Serial.begin(BAUD_RATE);
+  resPrinter.begin(BAUD_RATE);
+  pinMode(MOTOR_IN1, OUTPUT);
+  pinMode(MOTOR_IN2, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(RED_LED, OUTPUT);
+
+  lcd.begin(20, 4);
+  lcd.print("Scan your TAG");
+}
+```
+
+**`loop():`** In the loop function, we read the status code and RFID tag from the serial port. We then control the DC motor and LEDs accordingly. Also we print the status of the system on the LCD screen. In the end, we check the status of the system and close the door or turn off LEDs if needed.
+
+```ino
+void loop() {
+  if (readRfid(res)) {
+    lcd.clear();
+    strcpy(status, res);
+    status[3] = '\0'; 
+    strcpy(rfid, res);
+    resPrinter.println(status);
+    resPrinter.println(rfid);
+    statusCode = atoi(status);
+    if (statusCode == SUCCESS_CODE) {
+      accessGranted(rfid);
+    }
+    else if (statusCode == FAILURE_CODE) {
+      accessDenied();
+    }
+    memset(res, '\0', sizeof(res));
+    memset(rfid, '\0', sizeof(rfid));
+  }
+  checkStatus();
+}
+```
+
+**`turnOnGreenLed():`** This function is used to turn on the green LED. In this function, we check if the red LED is on. If it is on, we turn it off. We then turn on the green LED and set the `isGreenLedOn` to true. We also set the `lastTimeGreenLedOn` to the current time.
+```ino
+void turnOnGreenLed() {
+  if (currentStatus.isRedLedOn) {
+    turnOffRedLed();
+  }
+  digitalWrite(GREEN_LED, HIGH);
+  currentStatus.isGreenLedOn = true;
+  currentStatus.lastTimeGreenLedOn = millis();
+}
+```
+
+**`turnOffGreenLed():`** does the opposite of the `turnOnGreenLed()` function. It turns off the green LED and sets the `isGreenLedOn` to false. 
+
+```ino
+void turnOffGreenLed() {
+  digitalWrite(GREEN_LED, LOW);
+  currentStatus.isGreenLedOn = false;
+}
+```
+
+`turnOnRedLed():` and `turnOffRedLed()` implementations are also the same.
+
+**`openDoor():`** This function is used to open the door. In this function, we turn the DC motor clockwise for 90 degrees (This is done by setting a delay) and set the `isDoorOpen` to true. We also set the `lastTimeDoorOpen` to the current time. 
+
+```ino
+void openDoor() {
+  digitalWrite(MOTOR_IN1, HIGH);
+  digitalWrite(MOTOR_IN2, LOW);
+  currentStatus.isDoorOpen = true;
+  currentStatus.lastTimeDoorOpen = millis();
+  delay(DELAY_FOR_90_DEGREES_CLOCKWISE);
+  digitalWrite(MOTOR_IN1, LOW);
+  digitalWrite(MOTOR_IN2, LOW);
+}
+```
+
+`closeDoor():` function does the opposite of the `openDoor()` function. It closes the door by turning the DC motor counterclockwise for 90 degrees.
+
+**`checkStatus():`** This function gets the current time and checks the status of the system. If the red LED is on and the current time minus the last time the red LED was turned on is greater than the delay for the red LED, we turn off the red LED. We do the same for the green LED, door, and LCD screen. The `millis()` function returns 
+```ino
+void checkStatus() {
+  long unsigned int currentTime = millis();
+  if (currentStatus.isRedLedOn && currentTime - currentStatus.lastTimeRedLedOn >= DELAY_RED_LED) {
+    turnOffRedLed();
+  }
+  if (currentStatus.isGreenLedOn && currentTime - currentStatus.lastTimeGreenLedOn >= DELAY) {
+    turnOffGreenLed();
+  }
+  if (currentStatus.isDoorOpen && currentTime - currentStatus.lastTimeDoorOpen >= DELAY) {
+    closeDoor();
+  }
+  if (currentStatus.isPrintedOnMonitor && currentTime - currentStatus.lastTimeMonitorPrinted >= DELAY) {
+    lcd.clear();
+    currentStatus.isPrintedOnMonitor = false;
+  }
+}
+```
+
+**`accessGranted():`** In this function, we turn on the green LED, open the door, and print the RFID tag on the LCD screen. Setting the LCD cursor to the first row is done by using the `lcd.setCursor()` function.
+
+```ino
+void accessGranted(char rfid[]) {
+  lcd.setCursor(0, 1);
+  lcd.print(rfid);
+  currentStatus.isPrintedOnMonitor = true;
+  currentStatus.lastTimeMonitorPrinted = millis();
+  turnOnGreenLed();
+  openDoor();
+}
+```
+**`accessDenied():`** In this function, we turn on the red LED, close the door, and print the `ACCESS_DENIED` message on the LCD screen. We also check if the door is open and close it if it is open.
+
+```ino
+void accessDenied() {
+  lcd.setCursor(0, 1);
+  lcd.print(ACCESS_DENIED);
+  currentStatus.isPrintedOnMonitor = true;
+  currentStatus.lastTimeMonitorPrinted = millis();
+  turnOnRedLed();
+  if (currentStatus.isDoorOpen) {
+      lcd.clear();
+      closeDoor();
+  }
+}
+```
