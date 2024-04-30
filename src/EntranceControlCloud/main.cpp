@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     MonitoringSystemAuthenticator monitoringSystemAuthenticator(USERS_FILE_PATH);
     EntranceHistory entranceHistory(ENTRANCE_HISTORY_FILE_PATH);
     Authenticator authenticator(RFID_TAGS_FILE_PATH);
-    HttpServer httpServer(&authenticator ,QHostAddress::LocalHost, 5050);
+    HttpServer httpServer(&authenticator ,QHostAddress::Any, 80);
     WebSocketServer wsServer(QHostAddress::LocalHost, 5051);
 
     QObject::connect(&httpServer, &HttpServer::serverStarted, [](const QHostAddress &address, quint16 port){ 
