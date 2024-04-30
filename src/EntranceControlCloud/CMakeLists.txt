@@ -23,7 +23,7 @@ add_executable(EntranceControlCloud
   monitoringsystemuser.h monitoringsystemuser.cpp
   monitoringsystemauthenticator.h monitoringsystemauthenticator.cpp
   entrancehistory.h entrancehistory.cpp
-  data/entrance_history.json data/users.json data/rfid_tags.json
+  data/users.json data/rfid_tags.json
 )
 target_link_libraries(EntranceControlCloud Qt${QT_VERSION_MAJOR}::Core Qt6::Network Qt6::HttpServer)
 
