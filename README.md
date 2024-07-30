@@ -1,4 +1,4 @@
-# Entrance Control Cloud
+# Entrance Control System
 
 This project is about to implement a cloud-based entrance control system. The system consists of a cloud server and a client. The client is a microcontroller that is connected to a RFID reader and a DC motor. The server is a cloud server that is responsible for authenticating the users and controlling the entrance. The server is also responsible for monitoring the entrance and keeping the entrance history.
 
